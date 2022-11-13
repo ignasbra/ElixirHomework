@@ -1,48 +1,39 @@
 ---- MODULE XandOs ----
-EXTENDS TLC
-\* VARIABLES board, symbol
-
-\* symbols == {"X", "O", " "}
-\* TypeOK ==  (\A square \in board : square \in symbols)
-
-\* --------------------------------------------------------------------------------
-\* Init == /\ (board = { " ",  " ", " ", " ",  " ", " ", " ",  " ", " " }) 
-\*         /\ symbol \in symbols
-
-\* Next == /\ board' = {symbol} \cup board
-\*         /\ board' = board \setminus symbol
-\*         /\  \/ symbol' = "X"
-\*             \/ symbol' = "O"
-                 
-
-\* Spec == Init /\ Next
---------------------------------------------------------------------------------
-
+EXTENDS TLC,Naturals, Sequences
 
 VARIABLES board
 symbols == {"X", "O", " "}
-legal == { "X", "O" }
 possibleSpaces == {1, 2, 3, 4, 5, 6, 7, 8, 9}
 
-TypeOK ==   /\ \A square \in board : square \in symbols
+TypeOK ==  board \in [possibleSpaces ->  symbols]
+Init == board \in [possibleSpaces ->  { " " }]
 
-\* Init == board =  {1, 2, 3, 4, 5, 6, 7, 8, 9} \X { " " }
-Init == board \in [{1, 2, 3, 4, 5, 6, 7, 8, 9} ->  { " " }]
-\* PlaceO == \E i \in board : board' = [board EXCEPT ![i] = "X"]
-\* PlaceX == \E i \in board : board' = [board EXCEPT ![i] = "O"]
+\* 1 | 2 | 3
+\* 4 | 5 | 6
+\* 7 | 8 | 9
+                    \* horizontal lines
+IsWinner(symbol) == \/ \A x \in 1..3 : board[x] = symbol
+                    \/ \A x \in 4..6 : board[x] = symbol
+                    \/ \A x \in 7..9 : board[x] = symbol
+                    \* vertical lines
+                    \/ \A x \in {1, 4, 7} : board[x] = symbol
+                    \/ \A x \in {2, 5, 8} : board[x] = symbol
+                    \/ \A x \in {3, 6, 9} : board[x] = symbol
+                    \* diagonal lines
+                    \/ \A x \in {1, 5, 9} : board[x] = symbol
+                    \/ \A x \in {7, 5, 3} : board[x] = symbol
 
-\* PlaceX == \E i \in board : board' = (board \setminus {i}) \cup { <<i[1], "X">> } 
-\* PlaceO == \E i \in board : board' = (board \setminus {i}) \cup { <<i[1], "O">> } 
-
-GetEmptySquares == {x \in possibleSpaces : board[x] = " "}
-\* IsNoMoreMoves == GetEmptySquares != { }
-
+GetEmptySquares == {x \in 1..9 : board[x] = " "}
+IsNoMoreMoves == GetEmptySquares = {}
+IsAnyWinner == IsWinner("X") \/ IsWinner("O")
 PlaceO == \E i \in GetEmptySquares : board' = [board EXCEPT ![i] = "O"]  
 PlaceX == \E i \in GetEmptySquares : board' = [board EXCEPT ![i] = "X"]  
 
-\* Next ==  IsMoreMoves /\ (PlaceO \/ PlaceX) 
-Next ==  PlaceO \/ PlaceX 
-            
+Next == PlaceO \/ PlaceX
+             
+Spec == Init /\ [][Next]_board /\ WF_board(Next)
 
-Spec == Init /\ Next
+Termination == <> (IsAnyWinner \/ IsNoMoreMoves)
+
+\* Visada galiausiai arba laimetojas negalimas arba jis yra.
 ====
