@@ -12,16 +12,19 @@ defmodule DistSysNaive.Node do
   def get_board(), do: GenServer.call(__MODULE__, :get_board)
   def get_board(node), do: GenServer.call({__MODULE__, node}, :get_board)
 
+  def get_winner(), do: GenServer.call(__MODULE__, :get_winner)
+  def get_winner(node), do: GenServer.call({__MODULE__, node}, :get_winner)
+
   def make_move(number, move) do
     GenServer.cast(__MODULE__, {:make_move, number, move, 1})
     {status, payload} = get_board()
-    IO.puts("Winner is #{get_winner(payload)}")
   end
+
 
   ### Callbacks
   defmodule State do
     @enforce_keys [:player1, :player2]
-    defstruct [player1: nil, player2: nil, board: [nil, nil, nil, nil, nil, nil, nil, nil, nil]]
+    defstruct [player1: nil, player2: nil, board: [nil, nil, nil, nil, nil, nil, nil, nil, nil], scalarClock: 1]
   end
 
   @impl GenServer
@@ -30,8 +33,9 @@ defmodule DistSysNaive.Node do
     #A global Process Group is a named group which contains many processes, possibly running on different nodes. With the group Name, you can retrieve on any cluster node the list of these processes, or publish a message to all of them. This mechanism allows for Publish / Subscribe patterns.
 
     :ok = :syn.join(:dist_sys_naive, :node, self()) ## Į procesų registro grupę užregistruoja save.
-    Logger.debug("Started")
+
     state = %State{player1: "Unknown", player2: "Unknown", }
+    Logger.debug("Started")
     {:ok, state}
   end
 
@@ -50,12 +54,54 @@ defmodule DistSysNaive.Node do
     IO.puts(" #{Enum.at(result, 3)} | #{Enum.at(result, 4)} | #{Enum.at(result, 5)} ")
     IO.puts("-----------")
     IO.puts(" #{Enum.at(result, 6)} | #{Enum.at(result, 7)} | #{Enum.at(result, 8)} ")
+    IO.puts("Clock = #{state.scalarClock}")
 
     {:reply, {:ok, result}, state}
   end
 
+  @impl GenServer
   def handle_call(:get_players, _from, state = %State{player1: player1, player2: player2}) do
     {:reply, {:ok, player1, player2}, state}
+  end
+
+  @impl GenServer
+  def handle_call(:get_winner, _from, state = %State{board: board}) do
+
+    case board do
+      [s, s, s,
+      _, _, _,
+      _, _, _] when s != " " -> {:reply, {:ok, s}, state}
+
+      [_, _, _,
+       s, s, s,
+       _, _, _] when s != " "-> {:reply, {:ok, s}, state}
+
+      [_, _, _,
+       _, _, _,
+       s, s, s] when s != " " -> {:reply, {:ok, s}, state}
+
+      [s, _, _,
+       s, _, _,
+       s, _, _] when s != " "-> {:reply, {:ok, s}, state}
+
+      [_, s, _,
+       _, s, _,
+       _, s, _] when s != " " -> {:reply, {:ok, s}, state}
+
+      [_, _, s,
+       _, _, s,
+       _, _, s] when s != " " -> {:reply, {:ok, s}, state}
+
+      [s, _, _,
+       _, s, _,
+       _, _, s] when s != " " -> {:reply, {:ok, s}, state}
+
+      [_, _, s,
+       _, s, _,
+       s, _, _] when s != " " -> {:reply, {:ok, s}, state}
+
+       _ -> "none"
+    end
   end
 
   @impl GenServer
@@ -79,6 +125,7 @@ defmodule DistSysNaive.Node do
     end
   end
 
+  @impl GenServer
   def handle_cast({:make_move, number, move, ttl}, state) do
     self = self()
     # syn.members Returns the list of all members for GroupName in the specified Scope.
@@ -92,49 +139,18 @@ defmodule DistSysNaive.Node do
 
     case number do
       :player1 ->
-        {:noreply, %State{state | board: List.replace_at(state.board, move, "X")}}
+        if rem(state.scalarClock, 2) == 0 do
+          {:noreply, state}
+        else
+          {:noreply, %State{state | board: List.replace_at(state.board, move, "X"), scalarClock: state.scalarClock + 1}}
+        end
       :player2 ->
-        {:noreply, %State{state | board: List.replace_at(state.board, move, "O")}}
+        if rem(state.scalarClock, 2) == 1 do
+          {:noreply, state}
+        else
+          {:noreply, %State{state | board: List.replace_at(state.board, move, "O"), scalarClock: state.scalarClock + 1}}
+      end
     end
   end
 
-  def get_winner(board) do
-    symbols = [ "X", "O"] # why cant i use this in a guard
-    case board do
-
-      [s, s, s,
-      _, _, _,
-      _, _, _] when s != " " -> s
-
-      [_, _, _,
-       s, s, s,
-       _, _, _] when s != " "-> s
-
-      [_, _, _,
-       _, _, _,
-       s, s, s] when s != " " -> s
-
-      [s, _, _,
-       s, _, _,
-       s, _, _] when s != " "-> s
-
-      [_, s, _,
-       _, s, _,
-       _, s, _] when s != " " -> s
-
-      [_, _, s,
-       _, _, s,
-       _, _, s] when s != " " -> s
-
-      [s, _, _,
-       _, s, _,
-       _, _, s] when s != " " -> s
-
-      [_, _, s,
-       _, s, _,
-       s, _, _] when s != " " -> s
-
-       _ -> "none"
-    end
-  end
 end

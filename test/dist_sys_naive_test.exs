@@ -1,19 +1,37 @@
 defmodule DistSysNaiveTest do
   use ExUnit.Case
 
-  test "greets the world" do
-    assert DistSysNaive.hello() == :world
-  end
-
-  test "cluster" do
+  test "winner" do
     :ok = LocalCluster.start()
     nodes = LocalCluster.start_nodes("dsn-", 2)
     [n1, n2] = nodes
-    assert Node.make_move(:player1, 1) == :pong
 
-    DistSysNaive.Node.propose_answer(n1, "some")
+    assert DistSysNaive.Node.make_move(:player1, 0) == {:ok, [ "X", " ", " ",
+                                                  " ", " ", " ",
+                                                  " ", " ", " " ]}
+
+    assert DistSysNaive.Node.make_move(:player2, 3) == {:ok, [ "X", " ", " ",
+                                                  "O", " ", " ",
+                                                  " ", " ", " " ]}
+
+    assert DistSysNaive.Node.make_move(:player1, 1) == {:ok, [ "X", "X", " ",
+                                                  "O", " ", " ",
+                                                  " ", " ", " " ]}
+
+    assert DistSysNaive.Node.make_move(:player2, 4) == {:ok, [ "X", "X", " ",
+                                                  "O", "O", " ",
+                                                  " ", " ", " " ]}
+
+    assert DistSysNaive.Node.make_move(:player1, 2) == {:ok, [ "X", "X", "X",
+                                                  "O", "O", " ",
+                                                  " ", " ", " " ]}
+
     Process.sleep(100)
-    {:ok, "some"} = DistSysNaive.Node.get_answer(n2)
+
+    {:ok, [ "X", "X", "X", "O", "O", " ", " ", " ", " " ]} = DistSysNaive.Node.get_board(n2)
+    {:ok, [ "X", "X", "X", "O", "O", " ", " ", " ", " " ]} = DistSysNaive.Node.get_board(n1)
+    {status, result} = DistSysNaive.Node.get_board(n1)
+    {:ok, "X"} = DistSysNaive.Node.get_winner()
 
     :ok = LocalCluster.stop()
   end
