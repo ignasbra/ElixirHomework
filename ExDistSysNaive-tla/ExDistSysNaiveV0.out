@@ -1,0 +1,128 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.16 of 31 December 2020 (rev: cdddf55)
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running breadth-first search Model-Checking with fp 127 and seed -2079868928139267296 with 1 worker on 4 cores with 1808MB heap and 64MB offheap memory [pid: 6268] (Windows 10 10.0 amd64, Oracle Corporation 11.0.10 x86_64, MSBDiskFPSet, DiskStateQueue).
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file E:\University\Distributed Systems\Antros paskaitos kodas MVP\ExDistSysNaive-tla\ExDistSysNaiveV0.tla
+Semantic processing of module ExDistSysNaiveV0
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2022-10-11 21:50:56)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2269:0 @!@!@
+Computed 2 initial states...
+@!@!@ENDMSG 2269 @!@!@
+@!@!@STARTMSG 2269:0 @!@!@
+Computed 4 initial states...
+@!@!@ENDMSG 2269 @!@!@
+@!@!@STARTMSG 2269:0 @!@!@
+Computed 8 initial states...
+@!@!@ENDMSG 2269 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 16 distinct states generated at 2022-10-11 21:50:56.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 2193:0 @!@!@
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 6.4E-13
+@!@!@ENDMSG 2193 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2022-10-11 21:50:57
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2773:0 @!@!@
+<Init line 30, col 1 to line 30, col 4 of module ExDistSysNaiveV0>: 16:16
+@!@!@ENDMSG 2773 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 32, col 12 to line 32, col 37 of module ExDistSysNaiveV0: 1
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 33, col 12 to line 33, col 65 of module ExDistSysNaiveV0: 16
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2775:0 @!@!@
+  |line 33, col 21 to line 33, col 65 of module ExDistSysNaiveV0: 1:144
+@!@!@ENDMSG 2775 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<RecvCSend line 17, col 1 to line 17, col 9 of module ExDistSysNaiveV0>: 265:1228
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 19, col 12 to line 19, col 25 of module ExDistSysNaiveV0: 9072
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 19, col 12 to line 19, col 14 of module ExDistSysNaiveV0: 7844
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 20, col 12 to line 20, col 47 of module ExDistSysNaiveV0: 1228
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 21, col 12 to line 21, col 76 of module ExDistSysNaiveV0: 1228
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 21, col 20 to line 21, col 76 of module ExDistSysNaiveV0: 1228
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 21, col 21 to line 21, col 30 of module ExDistSysNaiveV0: 1228
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2775:0 @!@!@
+  ||line 21, col 38 to line 21, col 76 of module ExDistSysNaiveV0: 1228:3732
+@!@!@ENDMSG 2775 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 21, col 39 to line 21, col 61 of module ExDistSysNaiveV0: 2456
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 21, col 71 to line 21, col 75 of module ExDistSysNaiveV0: 1228
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 18, col 14 to line 18, col 17 of module ExDistSysNaiveV0: 2010
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<RecvBCast line 23, col 1 to line 23, col 9 of module ExDistSysNaiveV0>: 1729:6616
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 25, col 12 to line 25, col 25 of module ExDistSysNaiveV0: 14460
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 25, col 12 to line 25, col 14 of module ExDistSysNaiveV0: 7844
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 26, col 12 to line 26, col 47 of module ExDistSysNaiveV0: 6616
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 27, col 12 to line 27, col 29 of module ExDistSysNaiveV0: 6616
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 24, col 14 to line 24, col 17 of module ExDistSysNaiveV0: 2010
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 14, col 5 to line 15, col 26 of module ExDistSysNaiveV0: 2010
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2774:0 @!@!@
+<TypeOK line 13, col 1 to line 13, col 6 of module ExDistSysNaiveV0>
+@!@!@ENDMSG 2774 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(11) at 2022-10-11 21:50:57: 7,860 states generated (348,816 s/min), 2,010 distinct states found (89,201 ds/min), 0 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+7860 states generated, 2010 distinct states found, 0 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2194:0 @!@!@
+The depth of the complete state graph search is 11.
+@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 2268:0 @!@!@
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 8 and the 95th percentile is 3).
+@!@!@ENDMSG 2268 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 1367ms at (2022-10-11 21:50:57)
+@!@!@ENDMSG 2186 @!@!@

@@ -1,0 +1,150 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.16 of 31 December 2020 (rev: cdddf55)
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running breadth-first search Model-Checking with fp 128 and seed -6894792621517386057 with 1 worker on 4 cores with 1808MB heap and 64MB offheap memory [pid: 9364] (Windows 10 10.0 amd64, Oracle Corporation 11.0.10 x86_64, MSBDiskFPSet, DiskStateQueue).
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file E:\University\Distributed Systems\Antros paskaitos kodas MVP\ExDistSysNaive-tla\XandOs.tla
+Parsing file C:\Users\Ignas\AppData\Local\Temp\TLC.tla
+Parsing file C:\Users\Ignas\AppData\Local\Temp\Naturals.tla
+Parsing file C:\Users\Ignas\AppData\Local\Temp\Sequences.tla
+Parsing file C:\Users\Ignas\AppData\Local\Temp\FiniteSets.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module XandOs
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2022-10-13 16:09:53)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated at 2022-10-13 16:09:53.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 2114:1 @!@!@
+Deadlock reached.
+@!@!@ENDMSG 2114 @!@!@
+@!@!@STARTMSG 2121:1 @!@!@
+The behavior up to this point is:
+@!@!@ENDMSG 2121 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+board = <<" ", " ", " ", " ", " ", " ", " ", " ", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", " ", " ", " ", " ", " ", " ", " ", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+3: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", "O", " ", " ", " ", " ", " ", " ", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", "O", "O", " ", " ", " ", " ", " ", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", "O", "O", "O", " ", " ", " ", " ", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+6: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", "O", "O", "O", "O", " ", " ", " ", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+7: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", "O", "O", "O", "O", "O", " ", " ", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+8: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", "O", "O", "O", "O", "O", "O", " ", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+9: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", "O", "O", "O", "O", "O", "O", "O", " ">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+10: <PlaceO line 40, col 11 to line 40, col 71 of module XandOs>
+board = <<"O", "O", "O", "O", "O", "O", "O", "O", "O">>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2022-10-13 16:09:54
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2773:0 @!@!@
+<Init line 30, col 1 to line 30, col 4 of module XandOs>: 2:2
+@!@!@ENDMSG 2773 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 30, col 9 to line 30, col 59 of module XandOs: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<PlaceO line 40, col 1 to line 40, col 6 of module XandOs>: 511:59094
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 40, col 38 to line 40, col 71 of module XandOs: 59094
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 40, col 20 to line 40, col 34 of module XandOs: 19181
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 37, col 27 to line 37, col 40 of module XandOs: 19181
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<PlaceX line 41, col 1 to line 41, col 6 of module XandOs>: 19171:59049
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 41, col 20 to line 41, col 34 of module XandOs: 19172
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2775:0 @!@!@
+  |line 37, col 20 to line 37, col 58 of module XandOs: 19172:78221
+@!@!@ENDMSG 2775 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 37, col 44 to line 37, col 57 of module XandOs: 172548
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 37, col 27 to line 37, col 40 of module XandOs: 19172
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2775:0 @!@!@
+  |line 37, col 20 to line 37, col 58 of module XandOs: 19181:78275
+@!@!@ENDMSG 2775 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 37, col 44 to line 37, col 57 of module XandOs: 172629
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 41, col 38 to line 41, col 71 of module XandOs: 59049
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(10) at 2022-10-13 16:09:54: 118,099 states generated (5,097,798 s/min), 19,683 distinct states found (849,625 ds/min), 511 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+118099 states generated, 19683 distinct states found, 511 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2194:0 @!@!@
+The depth of the complete state graph search is 10.
+@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 2268:0 @!@!@
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 18 and the 95th percentile is 4).
+@!@!@ENDMSG 2268 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 1399ms at (2022-10-13 16:09:54)
+@!@!@ENDMSG 2186 @!@!@

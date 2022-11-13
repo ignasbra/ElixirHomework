@@ -24,3 +24,5 @@ dist_sys_naive-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+ExDistSysNaive-tla/states/
