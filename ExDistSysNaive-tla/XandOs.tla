@@ -1,12 +1,13 @@
 ---- MODULE XandOs ----
 EXTENDS TLC,Naturals, Sequences
 
-VARIABLES board
+VARIABLES board, scalarClock
 symbols == {"X", "O", " "}
 possibleSpaces == {1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 TypeOK ==  board \in [possibleSpaces ->  symbols]
-Init == board \in [possibleSpaces ->  { " " }]
+Init == /\ board \in [possibleSpaces ->  { " " }]
+        /\ scalarClock = 1
 
 \* 1 | 2 | 3
 \* 4 | 5 | 6
@@ -29,11 +30,11 @@ IsAnyWinner == IsWinner("X") \/ IsWinner("O")
 PlaceO == \E i \in GetEmptySquares : board' = [board EXCEPT ![i] = "O"]  
 PlaceX == \E i \in GetEmptySquares : board' = [board EXCEPT ![i] = "X"]  
 
-Next == PlaceO \/ PlaceX
+Next == /\ IF scalarClock % 2 = 1 THEN  PlaceO ELSE PlaceX
+        /\ scalarClock' = scalarClock + 1
              
 Spec == Init /\ [][Next]_board /\ WF_board(Next)
 
 Termination == <> (IsAnyWinner \/ IsNoMoreMoves)
 
-\* Visada galiausiai arba laimetojas negalimas arba jis yra.
 ====
