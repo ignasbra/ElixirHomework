@@ -20,11 +20,29 @@ defmodule DistSysNaive.Node do
     {status, payload} = get_board()
   end
 
+  ## RAFT methods
+  def request_vote(term, candidateId, lastLogIndex, lastLogTerm), do: GenServer.call(__MODULE__, {:request_vote, term, candidateId, lastLogIndex, lastLogTerm})
+  def append_entries(term, leaderId, prevLogIndex, prevLogTerm, entries, leaderCommit), do: GenServer.call(__MODULE__, {:append_entries, term, leaderId, prevLogIndex, prevLogTerm, entries, leaderCommit})
 
   ### Callbacks
   defmodule State do
     @enforce_keys [:player1, :player2]
-    defstruct [player1: nil, player2: nil, board: [nil, nil, nil, nil, nil, nil, nil, nil, nil], scalarClock: 1]
+    defstruct [player1: nil,
+    player2: nil,
+    board: [nil, nil, nil, nil, nil, nil, nil, nil, nil],
+    scalarClock: 1,
+    ## RAFT stuff
+    # Persistent state on all servers
+    currentTerm: 0,
+    votedFor: nil,
+    log: [],
+    # Volatile state on all servers
+    commitIndex: 0,
+    lastApplied: 0,
+    # Volatile state on leaders
+    nextIndex: [], # kiekvienas serveris turi indexą, reikšmė tame indekse pasako koks sekantis log entry turi būti nusiųstas tam serveriui
+    matchIndex: [] # Kiekvienas serveris turi indexą, reikšmė tame indekes pasako koks aukščiausias log entris yra replikuotas serveryje
+    ]
   end
 
   @impl GenServer
@@ -152,5 +170,55 @@ defmodule DistSysNaive.Node do
       end
     end
   end
+
+  @impl GenServer
+  def handle_call({:request_vote, term, candidateId, lastLogIndex, lastLogTerm}, state) when (term < state.currentTerm), do: {:reply, false, state}
+
+  @impl GenServer
+  def handle_call({:request_vote, term, candidateId, lastLogIndex, lastLogTerm}, state) do
+    voteGranted = false
+
+    if (state.votedFor == nil && lastLogIndex == state.lastApplied) do
+      voteGranted = true
+      state = %State{state | votedFor: candidateId}
+    end
+
+    {:reply, voteGranted, state}
+  end
+
+  @impl GenServer
+  def handle_call({:append_entries, term, leaderId, prevLogIndex, prevLogTerm, entries, leaderCommit}, state) when (term < state.currentTerm), do: {:reply, false, state}
+
+  @impl GenServer
+  def handle_call({:append_entries, term, leaderId, prevLogIndex, prevLogTerm, entries, leaderCommit}, state) do
+    entriesAppended = false
+
+    if (Enum.member?(state.log, prevLogIndex) && state.log[prevLogIndex].term == prevLogTerm) do
+
+      for entry <- entries do
+
+        if (Enum.member?(state.log, entry.id) && state.log[entry.id].term != entry.term) do
+          state = %State{state | log: Enum.drop(state.log, - entry.id)}
+          state = %State{state | lastApplied: state.lastApplied - entry.id}
+        end
+
+        if (Enum.member?(state.log, entry.id) == false) do
+          state = %State{state | log: state.log ++ [entry]}
+          state = %State{state | lastApplied: state.lastApplied + 1}
+        end
+      end
+
+      if (leaderCommit > state.commitIndex) do
+        state = %State{state | commitIndex: Kernel.min(leaderCommit, state.lastApplied)}
+      end
+
+      {:reply, true, state}
+
+    else
+      {:reply, false, state}
+    end
+
+  end
+
 
 end
